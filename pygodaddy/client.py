@@ -85,7 +85,9 @@ class GoDaddyClient(object):
         """
         if html is None:
             html = self.session.get(self.default_url).text
-        self.logged_in = bool(re.compile(r'Welcome:&nbsp;<span id="ctl00_lblUser" .*?\>(.*)</span>').search(html))
+        #Fix for Login issue (see issue #17 on original pygodaddy repo)
+        #self.logged_in = bool(re.compile(r'Welcome:&nbsp;<span id="ctl00_lblUser" .*?\>(.*)</span>').search(html))
+        self.logged_in = bool(re.compile(r'Customer Number: ').search(html))
         return self.logged_in
 
 
